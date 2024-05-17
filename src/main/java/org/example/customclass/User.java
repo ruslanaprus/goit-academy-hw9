@@ -1,8 +1,8 @@
-package org.example;
+package org.example.customclass;
 
 public class User {
-    String name;
-    int id;
+    private String name;
+    private int id;
 
     public User(int id, String name) {
         this.id = id;

@@ -1,16 +1,17 @@
 package org.example;
 
+import org.example.customclass.User;
 import org.example.mycollections.MyArrayList;
-
-import static java.util.Collections.swap;
+import org.example.mycollections.MyLinkedList;
 
 public class Main {
 
     public static void main(String[] args) {
 
-//        MyArrayList<String> collection = new MyArrayList<>();
+//        MyLinkedList<String> collection = new MyLinkedList<>();
+//        System.out.println("collection.isEmpty() = " + collection.isEmpty());
 //
-//        for (int i = 0; collection.size() <= 20; i++){
+//        for (int i = 0; collection.size() <= 20; i++) {
 //            collection.add("meow" + i);
 //        }
 
@@ -19,7 +20,7 @@ public class Main {
         User eve = new User(3, "eve");
         User charlie = new User(4, "charlie");
 
-        MyArrayList<User> collection = new MyArrayList<>();
+        MyLinkedList<User> collection = new MyLinkedList<>();
         collection.add(bob);
         collection.add(alice);
         collection.add(eve);
