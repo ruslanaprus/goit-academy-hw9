@@ -3,15 +3,16 @@ package org.example;
 import org.example.customclass.User;
 import org.example.mycollections.MyArrayList;
 import org.example.mycollections.MyLinkedList;
+import org.example.mycollections.MyQueue;
 
 public class Main {
 
     public static void main(String[] args) {
 
-//        MyLinkedList<String> collection = new MyLinkedList<>();
+//        MyQueue<String> collection = new MyQueue<>();
 //        System.out.println("collection.isEmpty() = " + collection.isEmpty());
 //
-//        for (int i = 0; collection.size() <= 20; i++) {
+//        for (int i = 0; collection.size() <= 29; i++) {
 //            collection.add("meow" + i);
 //        }
 
@@ -20,7 +21,7 @@ public class Main {
         User eve = new User(3, "eve");
         User charlie = new User(4, "charlie");
 
-        MyLinkedList<User> collection = new MyLinkedList<>();
+        MyQueue<User> collection = new MyQueue<>();
         collection.add(bob);
         collection.add(alice);
         collection.add(eve);
@@ -28,10 +29,13 @@ public class Main {
 
         System.out.println("collection = " + collection);
         System.out.println("collection.isEmpty() = " + collection.isEmpty());
-        System.out.println("collection.get(3) = " + collection.get(3));
+//        System.out.println("collection.get(3) = " + collection.get(3));
         System.out.println("collection.size() = " + collection.size());
-        collection.remove(3);
+        collection.poll();
         System.out.println("collection after removal = " + collection);
+        System.out.println("collection.size() = " + collection.size());
+        collection.peek();
+        System.out.println("collection after peek() = " + collection);
         System.out.println("collection.size() = " + collection.size());
         collection.clear();
         System.out.println("collection after clear = " + collection);
