@@ -5,6 +5,9 @@ import org.example.mycollections.MyArrayList;
 import org.example.mycollections.MyLinkedList;
 import org.example.mycollections.MyQueue;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -34,7 +37,7 @@ public class Main {
         collection.poll();
         System.out.println("collection after removal = " + collection);
         System.out.println("collection.size() = " + collection.size());
-        collection.peek();
+        System.out.println("collection.peek() = " + collection.peek());
         System.out.println("collection after peek() = " + collection);
         System.out.println("collection.size() = " + collection.size());
         collection.clear();

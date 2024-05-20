@@ -1,5 +1,6 @@
 package org.example.mycollections;
 
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 public class MyQueue<T> {
@@ -12,26 +13,26 @@ public class MyQueue<T> {
         isEmpty() check if collection is empty
      */
 
-    private static final int SIZE = 30;
+    private static final int INITIAL_CAPACITY = 10;
     private T[] data;
     private int tail;
     private int head;
-    private int count;
+    private int size;
 
     public MyQueue() {
-        data = (T[]) new Object[SIZE];
+        data = (T[]) new Object[INITIAL_CAPACITY];
         head = 0;
-        tail = -1;
-        count = 0;
+        tail = 0;
+        size = 0;
     }
 
-    public void add(T x) {
-        if (count == SIZE) {
-            throw new IllegalStateException("Queue is full");
+    public void add(T item) {
+        if (size == data.length) {
+            resize();
         }
-        tail = (tail + 1) % SIZE;
-        data[tail] = x;
-        count++;
+        data[tail] = item;
+        tail = (tail + 1) % data.length;
+        size++;
     }
 
     public T poll() {
@@ -40,8 +41,8 @@ public class MyQueue<T> {
         }
         T value = data[head];
         data[head] = null;
-        head = (head + 1) % SIZE;
-        count--;
+        head = (head + 1) % data.length;
+        size--;
         return value;
     }
 
@@ -53,25 +54,35 @@ public class MyQueue<T> {
     }
 
     public void clear() {
-        data = (T[]) new Object[SIZE];
+        Arrays.fill(data, 0, data.length, null);
         head = 0;
-        tail = -1;
-        count = 0;
+        tail = 0;
+        size = 0;
     }
 
     public boolean isEmpty() {
-        return count == 0;
+        return size == 0;
     }
 
     public int size() {
-        return count;
+        return size;
+    }
+
+    private void resize() {
+        T[] newData = (T[]) new Object[data.length * 2];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[(head + i) % data.length];
+        }
+        data = newData;
+        head = 0;
+        tail = size;
     }
 
     @Override
     public String toString() {
         StringJoiner result = new StringJoiner(", ", "[", "]");
-        for (int i = head; i <= tail; i++) {
-            result.add(String.valueOf(data[i]));
+        for (int i = 0; i < size; i++) {
+            result.add(String.valueOf(data[(head + i) % data.length]));
         }
         return result.toString();
     }
