@@ -9,7 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        MyHashMap<String, Integer> collection = new MyHashMap<>(5);
+        MyArrayList<String> collection = new MyArrayList<>();
+        collection.add("bengal");
+        collection.add("siamese");
+        collection.add("british shorthair");
 //        collection.put("one", 1);
 //        collection.put("two", 2);
 //        collection.put("three", 3);
@@ -41,17 +44,17 @@ public class Main {
 //        collection.put(bobsSecondEmail, "manager");
 //        collection.put(evesEmail, "ceo");
 
-        MyHashMap<User, String> collection = new MyHashMap();
-        collection.put(bob, "developer");
-        collection.put(alice, "developer");
-        collection.put(eve, "manager");
-        collection.put(charlie, "ceo");
-        collection.put(frank, "manager"); // this will rewrite bob's position
+//        MyHashMap<User, String> collection = new MyHashMap();
+//        collection.put(bob, "developer");
+//        collection.put(alice, "developer");
+//        collection.put(eve, "manager");
+//        collection.put(charlie, "ceo");
+//        collection.put(frank, "manager"); // this will rewrite bob's position
 
         System.out.println("collection = " + collection);
-        System.out.println("collection.get(bob) = " + collection.get(bob));
+        System.out.println("collection.get(0) = " + collection.get(0));
         System.out.println("collection.size() = " + collection.size());
-        collection.remove(bob);
+        collection.remove(0);
         System.out.println("collection after removal = " + collection);
         System.out.println("collection.size() = " + collection.size());
         collection.clear();
