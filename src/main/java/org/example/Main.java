@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        MyHashMap<String, Integer> collection = new MyHashMap<>();
+        MyHashMap<String, Integer> collection = new MyHashMap<>(5);
         collection.put("one", 1);
         collection.put("two", 2);
         collection.put("three", 3);

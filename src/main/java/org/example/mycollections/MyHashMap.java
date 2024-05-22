@@ -20,14 +20,25 @@ public class MyHashMap<K, V> {
     private int threshold;
 
     public MyHashMap() {
-        data = new Node[INITIAL_CAPACITY];
-        threshold = (int) (INITIAL_CAPACITY * LOAD_FACTOR);
+        this(INITIAL_CAPACITY);
+    }
+
+    public MyHashMap(int capacity) {
+        this(capacity, LOAD_FACTOR);
+    }
+
+    public MyHashMap(int capacity, float loadFactor) {
+        if (capacity <= 0 || loadFactor <= 0 || loadFactor >= 1) {
+            throw new IllegalArgumentException("Invalid capacity or load factor");
+        }
+        data = new Node[capacity];
+        threshold = (int) (capacity * loadFactor);
         size = 0;
     }
 
     public void put(K key, V value) {
         if (size >= threshold) {
-            resize();
+            resize(data.length * 2);
         }
 
         int hash = Objects.hashCode(key);
@@ -40,8 +51,7 @@ public class MyHashMap<K, V> {
             }
         }
 
-        Node<K, V> newNode = new Node<>(key, value, data[index]);
-        data[index] = newNode;
+        data[index] = new Node<>(key, value, data[index]);
         size++;
     }
 
@@ -61,8 +71,9 @@ public class MyHashMap<K, V> {
         int hash = Objects.hashCode(key);
         int index = hash & (data.length - 1);
         Node<K, V> prev = null;
+        Node<K, V> entry = data[index];
 
-        for (Node<K, V> entry = data[index]; entry != null; entry = entry.next) {
+        while (entry != null) {
             if (entry.hash == hash && Objects.equals(entry.key, key)) {
                 if (prev == null) {
                     data[index] = entry.next;
@@ -70,9 +81,14 @@ public class MyHashMap<K, V> {
                     prev.next = entry.next;
                 }
                 size--;
-                return;
+                break;
             }
             prev = entry;
+            entry = entry.next;
+        }
+
+        if (size > 0 && size == data.length / 4) {
+            resize(data.length / 2);
         }
     }
 
@@ -98,17 +114,19 @@ public class MyHashMap<K, V> {
         return result.toString();
     }
 
-    private void resize() {
+
+    private void resize(int newCapacity) {
         Node<K, V>[] oldData = data;
-        int newCapacity = data.length * 2;
-        data = new Node[newCapacity];
+        data = (Node<K, V>[]) new Node[newCapacity];
         threshold = (int) (newCapacity * LOAD_FACTOR);
-        size = 0;
 
         for (Node<K, V> node : oldData) {
             while (node != null) {
-                put(node.key, node.value);
-                node = node.next;
+                Node<K, V> next = node.next;
+                int index = node.hash & (newCapacity - 1);
+                node.next = data[index];
+                data[index] = node;
+                node = next;
             }
         }
     }
@@ -120,7 +138,7 @@ public class MyHashMap<K, V> {
         Node<K, V> next;
 
         public Node(K key, V value, Node<K, V> next) {
-            hash = Objects.hashCode(key);
+            this.hash = Objects.hashCode(key);
             this.key = key;
             this.value = value;
             this.next = next;
