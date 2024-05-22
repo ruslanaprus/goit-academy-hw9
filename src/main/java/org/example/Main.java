@@ -1,9 +1,9 @@
 package org.example;
 
+import org.example.customclass.EmailAddress;
 import org.example.customclass.User;
 import org.example.mycollections.*;
-
-import java.util.HashMap;
+import java.time.LocalDate;
 
 public class Main {
 
@@ -30,8 +30,17 @@ public class Main {
         User charlie = new User(4, "charlie");
         User frank = new User(1, "bob");
 
+//        EmailAddress bobsEmail = new EmailAddress(1234, bob, "active", LocalDate.of(2020, 1, 8), true);
+//        EmailAddress bobsSecondEmail = new EmailAddress(1234, bob, "active", LocalDate.of(2020, 1, 8), true);
+//        EmailAddress alicesEmail = new EmailAddress(321, alice, "active", LocalDate.of(2002, 3, 14), false);
+//        EmailAddress evesEmail = new EmailAddress(987, eve, "active", LocalDate.of(2019, 12, 22), false);
+//
+//        MyHashMap<EmailAddress, String> collection = new MyHashMap(4);
+//        collection.put(bobsEmail, "developer");
+//        collection.put(alicesEmail, "developer");
+//        collection.put(bobsSecondEmail, "manager");
+//        collection.put(evesEmail, "ceo");
 
-  //      HashMap<User, String> collection = new HashMap();
         MyHashMap<User, String> collection = new MyHashMap();
         collection.put(bob, "developer");
         collection.put(alice, "developer");
@@ -40,10 +49,9 @@ public class Main {
         collection.put(frank, "manager"); // this will rewrite bob's position
 
         System.out.println("collection = " + collection);
-//        System.out.println("collection.isEmpty() = " + collection.isEmpty());
         System.out.println("collection.get(bob) = " + collection.get(bob));
         System.out.println("collection.size() = " + collection.size());
-        collection.remove(eve);
+        collection.remove(bob);
         System.out.println("collection after removal = " + collection);
         System.out.println("collection.size() = " + collection.size());
         collection.clear();
