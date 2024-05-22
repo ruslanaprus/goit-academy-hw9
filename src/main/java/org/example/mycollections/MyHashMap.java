@@ -41,11 +41,11 @@ public class MyHashMap<K, V> {
             resize(data.length * 2);
         }
 
-        int hash = Objects.hashCode(key);
+        int hash = (key == null) ? 0 : key.hashCode();
         int index = hash & (data.length - 1); // will always produce a valid index within the array bounds
 
         for (Node<K, V> entry = data[index]; entry != null; entry = entry.next) {
-            if (entry.hash == hash && Objects.equals(entry.key, key)) {
+            if (Objects.equals(entry.key, key)) {
                 entry.value = value;
                 return;
             }
@@ -56,11 +56,11 @@ public class MyHashMap<K, V> {
     }
 
     public V get(K key) {
-        int hash = Objects.hashCode(key);
+        int hash = (key == null) ? 0 : key.hashCode();
         int index = hash & (data.length - 1);
 
         for (Node<K, V> entry = data[index]; entry != null; entry = entry.next) {
-            if (entry.hash == hash && Objects.equals(entry.key, key)) {
+            if (Objects.equals(entry.key, key)) {
                 return entry.value;
             }
         }
@@ -68,13 +68,13 @@ public class MyHashMap<K, V> {
     }
 
     public void remove(K key) {
-        int hash = Objects.hashCode(key);
+        int hash = (key == null) ? 0 : key.hashCode();
         int index = hash & (data.length - 1);
         Node<K, V> prev = null;
         Node<K, V> entry = data[index];
 
         while (entry != null) {
-            if (entry.hash == hash && Objects.equals(entry.key, key)) {
+            if (Objects.equals(entry.key, key)) {
                 if (prev == null) {
                     data[index] = entry.next;
                 } else {
@@ -123,7 +123,7 @@ public class MyHashMap<K, V> {
         for (Node<K, V> node : oldData) {
             while (node != null) {
                 Node<K, V> next = node.next;
-                int index = node.hash & (newCapacity - 1);
+                int index = (node.key == null) ? 0 : node.key.hashCode() & (newCapacity - 1);
                 node.next = data[index];
                 data[index] = node;
                 node = next;
@@ -132,13 +132,11 @@ public class MyHashMap<K, V> {
     }
 
     private static class Node<K, V> {
-        final int hash;
         final K key;
         V value;
         Node<K, V> next;
 
         public Node(K key, V value, Node<K, V> next) {
-            this.hash = Objects.hashCode(key);
             this.key = key;
             this.value = value;
             this.next = next;
