@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class MyLinkedListTest {
     private MyLinkedList<String> cats;
     private MyLinkedList<Integer> numbers;
@@ -25,7 +23,7 @@ class MyLinkedListTest {
         users = new MyLinkedList<>();
     }
 
-    // Testing MyArrayList with String
+    // Testing MyLinkedList with String
 
     @Test
     void testAddWithString() {
@@ -124,7 +122,7 @@ class MyLinkedListTest {
         Assertions.assertTrue(expectedCatsColleltion.equals(cats.toString()));
     }
 
-    //Testing MyArrayList with Integer
+    //Testing MyLinkedList with Integer
 
     @Test
     void testAddWithInteger() {
@@ -217,7 +215,7 @@ class MyLinkedListTest {
         Assertions.assertTrue(expectedNumbersColleltion.equals(numbers.toString()));
     }
 
-    //Testing MyArrayList with User class
+    //Testing MyLinkedList with User class
 
     @Test
     void testAddWithUser() {
